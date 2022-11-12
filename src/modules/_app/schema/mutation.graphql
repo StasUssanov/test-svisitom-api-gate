@@ -1,0 +1,4 @@
+type Mutation {
+    "Тестовая мутация"
+    test: String
+}
