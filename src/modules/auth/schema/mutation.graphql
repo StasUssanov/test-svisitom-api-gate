@@ -1,0 +1,19 @@
+extend type Mutation {
+    "Регистрация"
+    signUp(
+        username: String!
+        password: String!
+    ): AuthToken
+
+    "Авторизация"
+    signIn(
+        username: String!
+        password: String!
+    ): AuthToken
+
+    "Обновление токенов"
+    refreshTokens: AuthToken
+
+    "Удаление токенов"
+    signOut: BaseResponse
+}

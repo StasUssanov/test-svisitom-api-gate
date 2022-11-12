@@ -7,10 +7,12 @@ import { WebSocketServer } from 'ws';
 import { useServer } from 'graphql-ws/lib/use/ws';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import { config } from './config';
 import { schema } from './modules';
+import { context } from './context';
 
-const PATHNAME = '/';
-const PORT = 8080;
+const PATHNAME = config.server.pathGraphql;
+const PORT = config.server.port;
 
 const app = express();
 const httpServer = createServer(app);
@@ -39,7 +41,7 @@ const server = new ApolloServer({
 });
 
 await server.start();
-app.use(PATHNAME, cors<cors.CorsRequest>(), bodyParser.json(), expressMiddleware(server));
+app.use(PATHNAME, cors<cors.CorsRequest>(), bodyParser.json(), expressMiddleware(server, { context }));
 
 httpServer.listen(PORT, () => {
   console.log(`Server is now running on http://localhost:${PORT}${PATHNAME}`);
