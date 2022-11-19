@@ -1,7 +1,8 @@
 import { authServiceApi, TAuthRequest } from '../../../api/auth-service-api';
 import { TContext } from '../../../context/types';
+import { IResolvers } from '@graphql-tools/utils/typings';
 
-export const authResolvers = {
+export const authResolvers: IResolvers<unknown, TContext> = {
   Mutation: {
     signUp: (_: never, params: TAuthRequest) => authServiceApi.createUser(params),
     signIn: (_: never, params: TAuthRequest) => authServiceApi.getTokens(params),

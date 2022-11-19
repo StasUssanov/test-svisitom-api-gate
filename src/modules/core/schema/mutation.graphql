@@ -1,0 +1,11 @@
+extend type Mutation {
+    ""
+    statusUpdate(
+        status: CoreStatusRequestDto!
+    ): CoreStatus
+
+    ""
+    statusGroupUpdate(
+        statuses: [CoreStatusRequestDto!]!
+    ): CoreStatuses
+}
