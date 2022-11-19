@@ -1,0 +1,5 @@
+type AuthToken {
+    status: String
+    accessToken: String
+    refreshToken: String
+}
