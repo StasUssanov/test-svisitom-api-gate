@@ -1,0 +1,25 @@
+type CoreStatusResponseDto {
+    uuid: String
+    serialNumber: String
+    name: String
+    date: String
+    status: Boolean
+}
+
+input CoreStatusRequestDto {
+    uuid: String!
+    serialNumber: String
+    name: String
+    date: String
+    status: Boolean
+}
+
+type CoreStatus {
+    status: String
+    data: CoreStatusResponseDto
+}
+
+type CoreStatuses {
+    status: String
+    data: [CoreStatusResponseDto]
+}

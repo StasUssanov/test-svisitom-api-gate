@@ -1,6 +1,7 @@
 import { ApiClient, Statuses, TCommon } from '../api-client';
 import { TAuthRequest, TAuthResponse } from './types';
 import { TContext } from '../../context/types';
+import JwtDecode, { JwtPayload } from 'jwt-decode';
 
 export class AuthServiceApi extends ApiClient {
 
@@ -55,5 +56,14 @@ export class AuthServiceApi extends ApiClient {
         if (status) return ({ status });
         throw error;
       });
+  }
+
+  static check<R>(context: TContext, fn: Promise<R>): Promise<TCommon | R> {
+    if (context?.authorization) {
+      const jwt: JwtPayload & { typ?: string } = JwtDecode(context.authorization);
+      if (jwt.typ !== 'Bearer') return Promise.resolve({ status: 'TOKEN_WRONG' });
+      if ((jwt.exp * 1000) > Date.now()) return fn;
+    }
+    return Promise.resolve({ status: 'TOKEN_FAIL' });
   }
 }
